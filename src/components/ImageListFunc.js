@@ -7,7 +7,7 @@ export default function ImageListFunc({ name }) {
   const [searchTerm, setSearchterm] = React.useState("");
   const [loader, setLoader] = React.useState(false);
   const [images, setImages] = React.useState([]);
-  React.useEffect(() => {
+  function loadImages(searchTerm) {
     if (searchTerm !== "") {
       setLoader(true);
       getGiphies(searchTerm).then((payload) => {
@@ -16,13 +16,13 @@ export default function ImageListFunc({ name }) {
         setLoader(false);
       });
     }
-  }, [searchTerm]);
+  }
   return (
     <div className="content">
       <h2>{name}</h2>
       <Form
         action={(param) => {
-          setSearchterm(param);
+          loadImages(param);
         }}
       />
       {loader ? <Loader /> : <Images images={images} />}
