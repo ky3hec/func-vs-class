@@ -4,9 +4,9 @@ import Form from "./Form.js";
 import Images from "./Images.js";
 import Loader from "./Loader.js";
 export default function ImageListFunc({ name }) {
-  const [searchTerm, setSearchterm] = React.useState("");
   const [loader, setLoader] = React.useState(false);
   const [images, setImages] = React.useState([]);
+
   function loadImages(searchTerm) {
     if (searchTerm !== "") {
       setLoader(true);

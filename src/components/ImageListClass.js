@@ -8,9 +8,8 @@ export default class ImageListClass extends React.Component {
     super(props);
     this.state = { searchTerm: "", images: [], loader: false };
   }
-  componentDidUpdate(prevProps, prevState) {
-    const { searchTerm } = this.state;
-    if (searchTerm !== prevState.searchTerm) {
+  loadImages(searchTerm) {
+    if (searchTerm !== this.state.searchTerm) {
       this.setState({ loader: true });
       getGiphies(searchTerm).then((payload) => {
         this.setState({
@@ -20,11 +19,12 @@ export default class ImageListClass extends React.Component {
       });
     }
   }
+
   render() {
     return (
       <div className="content">
         <h2>{this.props.name}</h2>
-        <Form action={(param) => this.setState({ searchTerm: param })} />
+        <Form action={(param) => this.loadImages(param)} />
         {this.state.loader ? <Loader /> : <Images images={this.state.images} />}
       </div>
     );
